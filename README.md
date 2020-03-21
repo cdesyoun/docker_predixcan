@@ -1,5 +1,5 @@
 ## Docker information
-Please see the [docker instruction file]()
+Please see the [docker instruction file](docker_run_instruction.txt)
 ## PrediXcan
 
 PrediXcan is a gene-based association test that prioritizes genes that
