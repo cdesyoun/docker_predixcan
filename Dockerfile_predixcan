@@ -1,0 +1,27 @@
+# R predixcan base image  from local
+FROM predixcan-python2-base:latest
+
+MAINTAINER Choonhan Youn "cdesyoun@gmail.com"
+
+# copy PrediXcan source code into /PrediXcan project directory
+ARG PROJECT_DIR=/PrediXcan
+RUN mkdir -p $PROJECT_DIR
+
+# it seems that COPYing a directory isn't entirely
+# recursive as it would be using the command-line.
+# hence, create all major subdirectories for the
+# project manually, so that the COPY commands will
+# successfully populate them.
+RUN mkdir -p $PROJECT_DIR/Software
+RUN mkdir -p $PROJECT_DIR/Software/deprecated
+
+COPY ./Software/ $PROJECT_DIR/Software
+COPY ./Software/deprecated $PROJECT_DIR/Software/deprecated
+
+# set the working directory to the directory containing
+# the source code.
+WORKDIR $PROJECT_DIR/Software
+
+ENTRYPOINT [ "python" ]
+
+CMD [ "PrediXcan.py" ]

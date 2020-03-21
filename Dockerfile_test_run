@@ -1,0 +1,20 @@
+# R predixcan base image  from local
+FROM predixcan-python2-base:latest
+
+MAINTAINER Choonhan Youn "cdesyoun@gmail.com"
+
+# copy PrediXcan source code into /PrediXcan project directory
+ARG PROJECT_DIR=/PrediXcan
+RUN mkdir -p $PROJECT_DIR
+
+# I made some test program for R and python
+RUN mkdir -p $PROJECT_DIR/test_r_example
+RUN mkdir -p $PROJECT_DIR/test_r_example/01_data
+RUN mkdir -p $PROJECT_DIR/test_r_example/02_output
+COPY ./test_r_example/ $PROJECT_DIR/test_r_example
+COPY ./test_r_example/01_data/ $PROJECT_DIR/test_r_example/01_data
+WORKDIR $PROJECT_DIR/test_r_example
+ENTRYPOINT [ "python" ]
+
+CMD [ "test.py" ]
+

@@ -1,0 +1,14 @@
+# build predixcan base image
+docker build -f Dockerfile_base -t predixcan-python2-base:latest .
+
+# test predixcan base image for R and python
+docker build -f Dockerfile_test_run -t predixcan-python2-test:latest .
+docker run -it --rm -v $PWD/test_r_example/:/PrediXcan/test_r_example predixcan-python2-test:latest
+
+# check outputs from test run
+ls -l test_r_example/02_output/
+
+# build predixcan image for R and python
+docker build -f Dockerfile_predixcan -t predixcan-python2-run:latest .
+docker run -it --rm -v $PWD/Software/:/PrediXcan/Software predixcan-python2-run:latest
+docker run -it --rm -v $PWD/Software/:/PrediXcan/Software predixcan-python2-run:latest -h
